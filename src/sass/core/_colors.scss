@@ -1,33 +1,47 @@
 // Primitives
 $color-core-neutral: (
   "000": hsl(0, 0%, 100%),
-  "500": hsl(0, 0%, 50%),
-  "800": hsl(0, 0%, 19%),
-  "900": hsl(0, 0%, 0%),
+  "050": hsl(0, 0%, 98%),
+  "300": hsl(233, 11%, 84%),
+  "600": hsl(236, 9%, 61%),
+  "1000": hsl(0, 0%, 0%),
 );
 
 $color-core-accent: (
-  "red": (
-    "500": hsl(0, 100%, 66%),
+  "purple": (
+    "100": hsl(236, 33%, 92%),
+    "300": hsl(234, 39%, 85%),
+    "400": hsl(237, 20%, 80%),
+    "600": hsl(235, 16%, 43%),
+    "700": hsl(233, 14%, 35%),
+    "800": hsl(237, 14%, 26%),
+  ),
+  "navy": (
+    "850": hsl(235, 19%, 35%),
+    "900": hsl(235, 24%, 19%),
+    "950": hsl(235, 21%, 11%),
   ),
 );
 
 $color-core-brand: (
   "primary": (
-    "500": hsl(274, 82%, 60%),
-    "600": hsl(274, 82%, 50%),
+    "500": hsl(220, 98%, 61%),
   ),
 );
 
 $color-core-gradient: (
   1: (
-    start: oklch(0.9588 0.0154 257.2),
-    end: oklch(0.9779 0.0139 185.96),
+    start: hsl(192, 100%, 67%),
+    end: hsl(280, 87%, 65%),
+  ),
+  2: (
+    start: hsl(254, 85%, 40%),
+    end: hsl(307, 64%, 39%),
   ),
 );
 
 // Has Themes
-$has-themes: false;
+$has-themes: true;
 
 // Default-brand
 $default-brand: "primary";
@@ -36,28 +50,24 @@ $default-brand: "primary";
 $background-colors: (
   canvas: (
     default: (
-      light: "neutral-000",
+      light: "neutral-050",
+      dark: "navy-950",
     ),
   ),
   container: (
     default: (
       light: "neutral-000",
-    ),
-  ),
-  mobile-nav: (
-    menu: (
-      light: "neutral-000",
-    ),
-    overlay: (
-      light: "transparent",
+      dark: "navy-900",
     ),
   ),
   text: (
     selection: (
-      light: "brand-700",
+      light: "navy-900",
+      dark: "neutral-050",
     ),
     target: (
-      light: "brand-700",
+      light: "navy-900",
+      dark: "neutral-050",
     ),
   ),
 );
@@ -66,16 +76,28 @@ $background-colors: (
 $foreground-colors: (
   text: (
     base: (
-      light: "neutral-600",
+      light: "navy-850",
+      dark: "purple-100",
     ),
-    strong: (
-      light: "neutral-900",
+    muted: (
+      light: "neutral-600",
+      dark: "purple-600",
+    ),
+    disabled: (
+      light: "neutral-300",
+      dark: "purple-700",
+    ),
+    active: (
+      light: "primary-500",
+      dark: "primary-500",
     ),
     selection: (
-      light: "neutral-100",
+      light: "neutral-050",
+      dark: "navy-900",
     ),
     target: (
-      light: "neutral-100",
+      light: "neutral-050",
+      dark: "navy-900",
     ),
   ),
 );

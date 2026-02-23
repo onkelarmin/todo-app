@@ -3,7 +3,7 @@
 
 // Wrapper max-widths
 $wrapper-sizes: (
-  default: 1170px,
+  default: 540px,
   narrow: 1088px,
   wide: 1360px,
 );
@@ -27,17 +27,26 @@ $static-sizes: (
 
 // Breakpoint-specific sizes
 $breakpoint-specific-sizes: (
-  (20px, 24px, 24px),
-  (24px, 32px, 32px),
-  (24px, 32px, 48px)
+  (12px, 18px, 18px),
+  (12px, 14px, 14px),
+  (14px, 20px, 20px),
+  (16px, 24px, 24px),
+  (20px, 26px, 26px),
+  (40px, 24px, 24px),
+  (40px, 48px, 48px),
+  (48px, 48px, 36px),
+  (78px, 48px, 60px),
+  (108px, 163px, 163px)
 );
 
 //  Logo
 $logo-sizes: (
-  default: rem(16px),
+  default: bp(108px, 163px, 163px),
 );
 
-// SVG
-$svg-sizes: (
-  theme: rem(16px),
+// Icon
+$icon-sizes: (
+  theme: bp(20px, 26px, 26px),
+  check: rem(8px),
+  cross: bp(12px, 18px, 18px),
 );

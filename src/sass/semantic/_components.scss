@@ -8,18 +8,4 @@
       --btn-#{$property}-#{$variant}: #{$value};
     }
   }
-
-  // Skip-nav-link
-  @if meta.variable-exists("skip-nav-link-appearance") {
-    @each $property, $value in $skip-nav-link-appearance {
-      --skip-nav-link-#{$property}: #{$value};
-    }
-  }
-
-  // Nav-toggle
-  @if meta.variable-exists("nav-toggle-appearance") {
-    @each $property, $value in $nav-toggle-appearance {
-      --nav-toggle-#{$property}: #{$value};
-    }
-  }
 }

@@ -11,13 +11,13 @@
 
   @each $accent, $key-map in $color-core-accent {
     @each $key, $value in $key-map {
-      --clr-accent-#{$accent}-#{$key}: #{color.to-space($value, oklch)};
+      --clr-#{$accent}-#{$key}: #{color.to-space($value, oklch)};
     }
   }
 
   @each $brand, $key-map in $color-core-brand {
     @each $key, $value in $key-map {
-      --clr-brand-#{$brand}-#{$key}: #{color.to-space($value, oklch)};
+      --clr-#{$brand}-#{$key}: #{color.to-space($value, oklch)};
     }
   }
 

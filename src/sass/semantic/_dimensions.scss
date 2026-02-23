@@ -44,9 +44,9 @@
     --size-logo-#{$size}: #{$value};
   }
 
-  // SVG
-  @each $size, $value in $svg-sizes {
-    --size-svg-#{$size}: #{$value};
+  // Icon
+  @each $size, $value in $icon-sizes {
+    --size-icon-#{$size}: #{$value};
   }
 
   // Page padding

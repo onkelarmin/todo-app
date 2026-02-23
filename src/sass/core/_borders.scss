@@ -7,8 +7,12 @@ $border-widths: (
 
 $border-colors: (
   default-focus: (
-    light: "brand-500",
-    dark: "brand-500",
+    light: "primary-500",
+    dark: "primary-500",
+  ),
+  list-item: (
+    light: "purple-300",
+    dark: "purple-800",
   ),
 );
 
@@ -17,5 +21,10 @@ $borders: (
     width: "lg",
     style: "solid",
     color: "default-focus",
+  ),
+  list-item: (
+    width: "md",
+    style: "solid",
+    color: "list-item",
   ),
 );
