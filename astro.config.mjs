@@ -7,9 +7,9 @@ import netlify from "@astrojs/netlify";
 export default defineConfig({
   site: "https://fm-recipe-finder-website.netlify.app/",
 
-  // devToolbar: {
-  //   enabled: false,
-  // },
+  devToolbar: {
+    enabled: false,
+  },
   image: {
     responsiveStyles: true,
     layout: "constrained",
