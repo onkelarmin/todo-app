@@ -3,13 +3,19 @@
 import "@sass/main.scss";
 import "lenis/dist/lenis.css";
 
+// Integrations
+import { Image } from "astro:assets";
+
 // Type imports
 import type { HTMLAttributes } from "astro/types";
 
 // Component imports
 import BaseHead from "@layouts/BaseHead.astro";
-import SkipNavLink from "@/components/layout/SkipNavLink.astro";
 import Header from "@/components/layout/Header.astro";
+
+// Asset imports
+import lightBg from "@assets/bg-desktop-light.jpg";
+import darkBg from "@assets/bg-desktop-dark.jpg";
 
 interface Props extends HTMLAttributes<"html"> {
   title: string;
@@ -20,11 +26,61 @@ interface Props extends HTMLAttributes<"html"> {
 
 <html lang="en">
   <BaseHead {...Astro.props} />
-  <SkipNavLink />
   <Header />
   <body>
+    <div class="bg">
+      <Image
+        class="bg-light"
+        src={lightBg}
+        alt=""
+        layout="full-width"
+        priority
+      />
+      <Image class="bg-dark" src={darkBg} alt="" layout="full-width" priority />
+    </div>
     <main id="main">
       <slot />
     </main>
   </body>
 </html>
+
+<style lang="scss">
+  @use "@sass/miscellaneous" as *;
+
+  .bg > * {
+    height: 12.5rem;
+    object-position: 20% 50%;
+
+    @include mq(medium) {
+      height: 18.75rem;
+      object-position: 0% 50%;
+    }
+
+    @include mq(large) {
+      object-position: 50% 50%;
+    }
+  }
+
+  :global(html[data-theme="light"]) .bg-dark {
+    display: none;
+  }
+  :global(html[data-theme="dark"]) .bg-light {
+    display: none;
+  }
+
+  // No JS
+  :global(html:not([data-theme])) {
+    .bg-dark {
+      display: none;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .bg-light {
+        display: none;
+      }
+      .bg-dark {
+        display: block;
+      }
+    }
+  }
+</style>
