@@ -1,0 +1,1 @@
+export { initMobileNav } from "./mobileNav";
