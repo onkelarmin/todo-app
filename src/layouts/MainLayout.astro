@@ -47,17 +47,25 @@ interface Props extends HTMLAttributes<"html"> {
 <style lang="scss">
   @use "@sass/miscellaneous" as *;
 
-  .bg > * {
-    height: 12.5rem;
-    object-position: 20% 50%;
+  .bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
 
-    @include mq(medium) {
-      height: 18.75rem;
-      object-position: 0% 50%;
-    }
+    > * {
+      height: 12.5rem;
+      object-position: 20% 50%;
 
-    @include mq(large) {
-      object-position: 50% 50%;
+      @include mq(medium) {
+        height: 18.75rem;
+        object-position: 0% 50%;
+      }
+
+      @include mq(large) {
+        object-position: 50% 50%;
+      }
     }
   }
 
