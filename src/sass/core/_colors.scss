@@ -100,4 +100,14 @@ $foreground-colors: (
       dark: "navy-900",
     ),
   ),
+  icon: (
+    theme-idle: (
+      light: "neutral-000",
+      dark: "neutral-000",
+    ),
+    theme-hover: (
+      light: "neutral-300",
+      dark: "neutral-300",
+    ),
+  ),
 );

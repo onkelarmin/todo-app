@@ -1,8 +1,30 @@
 ---
 // Component imports
 import Wrapper from "@components/utilities/Wrapper.astro";
+import ThemeSwitch from "@components/ui/ThemeSwitch.astro";
+
+// Asset imports
+import Logo from "@assets/svg/logo.svg";
 ---
 
 <header>
-  <Wrapper />
+  <Wrapper>
+    <div class="layout">
+      <Logo class="logo" aria-hidden="true" />
+      <ThemeSwitch />
+    </div>
+  </Wrapper>
 </header>
+
+<style lang="scss">
+  .layout {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    width: var(--size-logo-default);
+  }
+</style>

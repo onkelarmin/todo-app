@@ -1,0 +1,59 @@
+---
+// Asset imports
+import MoonSvg from "@assets/svg/icon-moon.svg";
+import SunSvg from "@assets/svg/icon-sun.svg";
+---
+
+<label class="theme-switch" aria-label="Dark mode">
+  <input type="checkbox" role="switch" class="visually-hidden" />
+
+  <MoonSvg class="icon moon-svg" aria-hidden="true" />
+  <SunSvg class="icon sun-svg" aria-hidden="true" />
+</label>
+
+<style lang="scss">
+  label {
+    cursor: pointer;
+    color: var(--fg-icon-theme-idle);
+    transition: color var(--trans-default);
+
+    @media (hover: hover) {
+      &:has(input:hover) {
+        color: var(--fg-icon-theme-hover);
+      }
+    }
+
+    &:has(input:focus-visible) {
+      outline: var(--border-default-focus);
+      outline-offset: var(--offset-default-focus);
+    }
+  }
+
+  // Icons
+  .icon {
+    width: var(--size-icon-theme);
+  }
+
+  :global(html[data-theme="light"]) .sun-svg {
+    display: none;
+  }
+  :global(html[data-theme="dark"]) .moon-svg {
+    display: none;
+  }
+
+  // No JS
+  :global(html:not([data-theme])) {
+    .sun-svg {
+      display: none;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .moon-svg {
+        display: none;
+      }
+      .sun-svg {
+        display: block;
+      }
+    }
+  }
+</style>
