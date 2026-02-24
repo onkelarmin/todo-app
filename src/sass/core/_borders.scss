@@ -1,8 +1,9 @@
 @use "helper" as *;
 
 $border-widths: (
+  default-focus: rem(2px),
+  completed: rem(1px),
   md: rem(1px),
-  lg: rem(2px),
 );
 
 $border-colors: (
@@ -18,7 +19,7 @@ $border-colors: (
 
 $borders: (
   default-focus: (
-    width: "lg",
+    width: "default-focus",
     style: "solid",
     color: "default-focus",
   ),

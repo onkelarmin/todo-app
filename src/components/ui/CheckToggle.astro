@@ -6,14 +6,18 @@ import type { HTMLAttributes } from "astro/types";
 import CheckSvg from "@assets/svg/icon-check.svg";
 
 // Props
-interface Props extends HTMLAttributes<"input"> {}
+interface Props extends HTMLAttributes<"input"> {
+  task: string;
+  completed: boolean;
+}
 
-const {} = Astro.props;
+const { task, completed } = Astro.props;
 ---
 
 <label>
+  <span class="visually-hidden">Complete task: {task}</span>
   <CheckSvg class="check-svg" aria-hidden="true" />
-  <input type="checkbox" class="visually-hidden" />
+  <input type="checkbox" class="visually-hidden" checked={completed} />
 </label>
 
 <style lang="scss">
@@ -24,6 +28,7 @@ const {} = Astro.props;
     width: var(--size-20px-24px-24px);
     aspect-ratio: 1;
     border-radius: var(--br-round);
+    cursor: pointer;
 
     &::before,
     &::after {

@@ -8,6 +8,7 @@ import MainLayout from "@layouts/MainLayout.astro";
 // Component imports
 import CreateTodo from "@/components/ui/CreateTodo.astro";
 import Wrapper from "@/components/utilities/Wrapper.astro";
+import TodoListItem from "@/components/ui/TodoListItem.astro";
 
 const page = sitePages.home;
 ---
@@ -19,5 +20,34 @@ const page = sitePages.home;
 >
   <Wrapper>
     <CreateTodo />
+    <section class="todos">
+      <ul class="todos-list">
+        <TodoListItem
+          task="Complete online JavaScript course"
+          completed={true}
+        />
+        <TodoListItem task="Jog around the park 3x" completed={false} />
+        <TodoListItem task="10 minutes meditation" completed={false} />
+        <TodoListItem task="Read for 1 hour" completed={false} />
+        <TodoListItem task="Pick up groceries" completed={false} />
+        <TodoListItem
+          task="Complete Todo App on Frontend Mentor"
+          completed={false}
+        />
+      </ul>
+
+      <p class="info">Drag and drop to reorder list</p>
+    </section>
   </Wrapper>
 </MainLayout>
+
+<style lang="scss">
+  .todos {
+    margin-block-start: var(--pad-sect-sm);
+  }
+
+  .todos-list {
+    border-radius: var(--br-md);
+    overflow: hidden;
+  }
+</style>

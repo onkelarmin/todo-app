@@ -23,6 +23,7 @@ body {
   &:focus-visible {
     outline: var(--border-default-focus);
     outline-offset: var(--offset-default-focus);
+    border-radius: var(--br-default-focus);
   }
 }
 

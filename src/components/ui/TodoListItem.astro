@@ -1,0 +1,99 @@
+---
+// Type imports
+import type { HTMLAttributes } from "astro/types";
+
+// Component imports
+import CheckToggle from "@components/ui/CheckToggle.astro";
+
+// Asset imports
+import CrossSvg from "@assets/svg/icon-cross.svg";
+
+// Props
+interface Props extends HTMLAttributes<"li"> {
+  task: string;
+  completed: boolean;
+}
+
+const { task, completed } = Astro.props;
+---
+
+<li>
+  <CheckToggle task={task} completed={completed} />
+
+  <p class="task">{task}</p>
+
+  <button type="button" class="delete-button"
+    ><span class="visually-hidden">Delete task: {task}</span>
+    <CrossSvg class="cross-svg" aria-hidden="true" />
+  </button>
+</li>
+
+<style lang="scss">
+  li {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--space-cont-lg);
+    background-color: var(--bg-container-default);
+    padding-block: var(--pad-cont-xs);
+    padding-inline: var(--pad-cont-sm);
+    border-bottom: var(--border-list-item);
+
+    @media (hover: hover) {
+      &:hover {
+        .delete-button {
+          opacity: 1;
+        }
+      }
+    }
+
+    &:has(input:checked) .task {
+      color: var(--fg-text-completed);
+
+      &::before {
+        transform: scaleX(1);
+        transition: transform var(--trans-default);
+      }
+    }
+  }
+
+  .task {
+    position: relative;
+    width: fit-content;
+    font: var(--font-1);
+    color: var(--fg-text-default);
+    transition: color var(--trans-default);
+
+    &::before {
+      content: "";
+      position: absolute;
+      align-self: center;
+      height: var(--bw-completed);
+      width: 100%;
+      background-color: var(--fg-text-completed);
+      transform-origin: center left;
+      transform: scaleX(0);
+      transition: transform 0s;
+    }
+  }
+
+  .delete-button {
+    display: grid;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity var(--trans-default);
+
+    @media (hover: hover) {
+      opacity: 0;
+    }
+
+    &:focus-visible {
+      opacity: 1;
+    }
+
+    .cross-svg {
+      width: var(--size-icon-cross);
+    }
+  }
+</style>
