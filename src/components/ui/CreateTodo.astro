@@ -1,0 +1,59 @@
+---
+// Component imports
+import CheckToggleFake from "@components/ui/CheckToggleFake.astro";
+---
+
+<form novalidate>
+  <CheckToggleFake />
+  <label>
+    <span class="visually-hidden">Enter a Todo</span>
+    <input
+      type="text"
+      name="todo"
+      id="create-todo"
+      minlength="1"
+      maxlength="80"
+      required
+      inputmode="text"
+      placeholder="Create a new todo…"
+    />
+  </label>
+</form>
+
+<style lang="scss">
+  form {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: var(--space-cont-lg);
+    background-color: var(--bg-container-default);
+    border-radius: var(--br-md);
+    padding-block: var(--pad-cont-xs);
+    padding-inline: var(--pad-cont-sm);
+
+    &:has(#create-todo:focus-visible) {
+      outline: var(--border-default-focus);
+    }
+  }
+
+  label {
+    display: block;
+    width: 100%;
+  }
+
+  input {
+    width: 100%;
+    font: var(--font-1);
+    border: none;
+    background-color: transparent;
+    caret-color: var(--fg-text-active);
+
+    &::placeholder {
+      color: var(--fg-text-placeholder);
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+</style>

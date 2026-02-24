@@ -1,0 +1,88 @@
+---
+// Type imports
+import type { HTMLAttributes } from "astro/types";
+
+// Asset imports
+import CheckSvg from "@assets/svg/icon-check.svg";
+
+// Props
+interface Props extends HTMLAttributes<"input"> {}
+
+const {} = Astro.props;
+---
+
+<label>
+  <CheckSvg class="check-svg" aria-hidden="true" />
+  <input type="checkbox" class="visually-hidden" />
+</label>
+
+<style lang="scss">
+  label {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: var(--size-20px-24px-24px);
+    aspect-ratio: 1;
+    border-radius: var(--br-round);
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      border-radius: inherit;
+    }
+
+    &::before {
+      inset: 0;
+      background: linear-gradient(
+        in oklch 135deg,
+        var(--clr-gradient-1-start) 00%,
+        var(--clr-gradient-1-end) 90%
+      );
+      opacity: 0;
+      transition: opacity var(--trans-default);
+    }
+
+    &::after {
+      inset: var(--bw-md);
+      background-color: var(--bg-container-default);
+      outline: var(--bw-md) solid var(--bc-list-item);
+      transition:
+        outline-color var(--trans-default),
+        background-color var(--trans-default);
+    }
+
+    @media (hover: hover) {
+      &:has(input:hover) {
+        &::before {
+          opacity: 1;
+        }
+
+        &::after {
+          outline-color: transparent;
+        }
+      }
+    }
+
+    &:has(input:focus-visible) {
+      outline: var(--border-default-focus);
+      outline-offset: var(--offset-default-focus);
+    }
+
+    &:has(input:checked) {
+      &::before {
+        opacity: 1;
+      }
+
+      &::after {
+        background-color: transparent;
+        outline-color: transparent;
+      }
+    }
+  }
+
+  .check-svg {
+    position: relative;
+    width: var(--size-icon-check);
+  }
+</style>
