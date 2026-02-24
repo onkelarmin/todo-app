@@ -21,6 +21,7 @@ const page = sitePages.home;
   <Wrapper>
     <CreateTodo />
     <section class="todos">
+      <!-- Todos list -->
       <ul class="todos-list">
         <TodoListItem
           task="Complete online JavaScript course"
@@ -36,18 +37,135 @@ const page = sitePages.home;
         />
       </ul>
 
-      <p class="info">Drag and drop to reorder list</p>
+      <!-- Footer / controls -->
+      <footer class="todo-footer">
+        <div class="controls">
+          <p class="items-left" role="status">5 items left</p>
+          <button type="button" class="clear-completed-button"
+            >Clear Completed</button
+          >
+        </div>
+
+        <div class="filters" role="group">
+          <span class="visually-hidden">Filter todos</span>
+          <button type="button" class="filter-button" aria-pressed="true"
+            >All</button
+          >
+          <button type="button" class="filter-button" aria-pressed="false"
+            >Active</button
+          >
+          <button type="button" class="filter-button" aria-pressed="false"
+            >Completed</button
+          >
+        </div>
+      </footer>
     </section>
+    <p class="info">Drag and drop to reorder list</p>
   </Wrapper>
 </MainLayout>
 
 <style lang="scss">
+  @use "@sass/miscellaneous" as *;
+
   .todos {
+    border-top-left-radius: var(--br-md);
+    border-top-right-radius: var(--br-md);
     margin-block-start: var(--pad-sect-sm);
   }
 
   .todos-list {
-    border-radius: var(--br-md);
-    overflow: hidden;
+    box-shadow: var(--bs-todos);
+  }
+
+  .todo-footer {
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--bg-container-default);
+      border-bottom-left-radius: var(--br-md);
+      border-bottom-right-radius: var(--br-md);
+      box-shadow: var(--bs-todos);
+      padding-block: var(--pad-cont-xs);
+      padding-inline: var(--pad-cont-sm);
+
+      .items-left {
+        font: var(--font-2);
+        color: var(--fg-text-muted);
+      }
+
+      .clear-completed-button {
+        font: var(--font-2);
+        color: var(--fg-text-muted);
+        background: none;
+        border: none;
+        transition: color var(--trans-default);
+
+        &:not(:disabled) {
+          cursor: pointer;
+        }
+
+        @media (hover: hover) {
+          &:hover {
+            color: var(--fg-text-hover);
+          }
+        }
+      }
+    }
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-cont-md);
+      background-color: var(--bg-container-default);
+      border-radius: var(--br-md);
+      box-shadow: var(--bs-todos);
+      padding-block: var(--pad-cont-xs);
+      padding-inline: var(--pad-cont-sm);
+      margin-block-start: var(--space-cont-md);
+
+      .filter-button {
+        font: var(--font-3);
+        color: var(--fg-text-muted);
+        transition: color var(--trans-default);
+        background: none;
+        border: none;
+        transition: color var(--trans-default);
+
+        &:not([aria-pressed="true"]) {
+          cursor: pointer;
+        }
+
+        @media (hover: hover) {
+          &:hover {
+            color: var(--fg-text-hover);
+          }
+        }
+
+        &[aria-pressed="true"] {
+          color: var(--fg-text-active);
+        }
+      }
+    }
+
+    @include mq(medium) {
+      position: relative;
+
+      .filters {
+        position: absolute;
+        top: 0;
+        justify-self: center;
+        margin: 0;
+        box-shadow: none;
+      }
+    }
+  }
+
+  .info {
+    font: var(--font-4);
+    color: var(--fg-text-muted);
+    text-align: center;
+    margin-block-start: var(--space-cont-xl);
   }
 </style>

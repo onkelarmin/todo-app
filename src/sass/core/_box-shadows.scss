@@ -4,7 +4,7 @@ $box-shadow-colors: (
     light: "transparent",
     dark: "transparent",
   ),
-  list: (
+  todos: (
     light: "purple-400" 0.5,
     dark: "neutral-1000" 0.5,
   ),
@@ -12,11 +12,11 @@ $box-shadow-colors: (
 
 $box-shadows-offsets: (
   none: 0px 0px 0px 0px,
-  list: 0px 35px 50px -15px,
+  todos: 0px 35px 50px -15px,
 );
 
 $box-shadows: (
-  link: (
-    var(--bs-link),
+  todos: (
+    var(--bs-todos),
   ),
 );

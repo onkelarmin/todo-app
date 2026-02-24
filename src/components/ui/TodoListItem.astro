@@ -49,11 +49,7 @@ const { task, completed } = Astro.props;
 
     &:has(input:checked) .task {
       color: var(--fg-text-completed);
-
-      &::before {
-        transform: scaleX(1);
-        transition: transform var(--trans-default);
-      }
+      text-decoration: line-through;
     }
   }
 
@@ -64,18 +60,6 @@ const { task, completed } = Astro.props;
     font: var(--font-1);
     color: var(--fg-text-default);
     transition: color var(--trans-default);
-
-    &::before {
-      content: "";
-      position: absolute;
-      align-self: center;
-      height: var(--bw-completed);
-      width: 100%;
-      background-color: var(--fg-text-completed);
-      transform-origin: center left;
-      transform: scaleX(0);
-      transition: transform 0s;
-    }
   }
 
   .delete-button {
