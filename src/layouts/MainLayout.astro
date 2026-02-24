@@ -56,10 +56,16 @@ interface Props extends HTMLAttributes<"html"> {
 
     > * {
       height: 12.5rem;
-      object-position: 20% 50%;
 
       @include mq(medium) {
         height: 18.75rem;
+      }
+    }
+
+    .bg-dark {
+      object-position: 20% 50%;
+
+      @include mq(medium) {
         object-position: 0% 50%;
       }
 
