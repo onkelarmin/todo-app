@@ -1,9 +1,9 @@
-import { initAnimations } from "@scripts/features/animations";
-import { initLenis } from "@scripts/features/scroll";
-import { initThemeSwitch } from "./features/themeSwitch";
+import { initAnimations } from "@shared/animations";
+import { initScroll } from "@shared/scroll";
+import { initTheme } from "@shared/theme";
 
 document.addEventListener("DOMContentLoaded", () => {
   initAnimations();
-  initLenis();
-  initThemeSwitch();
+  initScroll();
+  initTheme();
 });

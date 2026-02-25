@@ -1,4 +1,4 @@
-import { customProp } from "@/lib/helper";
+import { customProp } from "@shared/utils/helper";
 
 export const MEDIA = {
   isMobileP: `(max-width: ${customProp("--bp-small")})`,

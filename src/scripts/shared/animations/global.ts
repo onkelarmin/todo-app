@@ -1,4 +1,4 @@
-import { cssTime } from "@/lib/helper";
+import { cssTime } from "@shared/utils/helper";
 import { gsap } from "./gsap";
 import { ScrollTrigger } from "./gsap";
 
