@@ -1,3 +1,4 @@
+import { isFilter } from "../constants";
 import type { Store } from "../store";
 import type { TodoDOM } from "./dom";
 
@@ -42,5 +43,23 @@ export function bindEvents(dom: TodoDOM, store: Store) {
 
   dom.clearCompletedButton.addEventListener("click", () => {
     store.dispatch({ type: "todo/clearCompleted" });
+  });
+
+  dom.filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const filter = button.dataset.filter;
+
+      if (!filter) {
+        console.error("Data-filter attribute missing");
+        return;
+      }
+
+      if (!isFilter(filter)) {
+        console.error("Unknown data-filter value");
+        return;
+      }
+
+      store.dispatch({ type: "filter/set", filter });
+    });
   });
 }

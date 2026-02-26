@@ -5,6 +5,7 @@ export type TodoDOM = {
   todoListItemTemplate: HTMLTemplateElement;
   clearCompletedButton: HTMLButtonElement;
   itemsLeft: HTMLParagraphElement;
+  filterButtons: NodeListOf<HTMLButtonElement>;
 };
 
 export function getTodoDOM() {
@@ -19,6 +20,8 @@ export function getTodoDOM() {
     ".clear-completed-button",
   );
   const itemsLeft = document.querySelector<HTMLParagraphElement>(".items-left");
+  const filterButtons =
+    document.querySelectorAll<HTMLButtonElement>(".filter-button");
 
   if (
     !form ||
@@ -26,7 +29,8 @@ export function getTodoDOM() {
     !todoList ||
     !todoListItemTemplate ||
     !clearCompletedButton ||
-    !itemsLeft
+    !itemsLeft ||
+    filterButtons.length === 0
   ) {
     throw new Error("Required DOM element missing");
   }
@@ -38,5 +42,6 @@ export function getTodoDOM() {
     todoListItemTemplate,
     clearCompletedButton,
     itemsLeft,
+    filterButtons,
   };
 }

@@ -1,10 +1,13 @@
+import { selectVisibleTodos } from "../selectors";
 import type { State } from "../types";
 import type { TodoDOM } from "./dom";
 
 export function render(state: State, dom: TodoDOM) {
   dom.todoList.innerHTML = "";
 
-  const sorted = state.todos.toSorted((a, b) => a.order - b.order);
+  const visible = selectVisibleTodos(state);
+
+  const sorted = visible.toSorted((a, b) => a.order - b.order);
 
   sorted.forEach((todo) => {
     const clone = dom.todoListItemTemplate.content.cloneNode(

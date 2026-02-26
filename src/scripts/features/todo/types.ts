@@ -1,4 +1,4 @@
-export type Filter = "all" | "active" | "completed";
+import type { Filter } from "./constants";
 
 export type Todo = {
   id: string;
@@ -17,4 +17,5 @@ export type Action =
   | { type: "todo/add"; text: string }
   | { type: "todo/delete"; id: string }
   | { type: "todo/toggle"; id: string; checked: boolean }
-  | { type: "todo/clearCompleted" };
+  | { type: "todo/clearCompleted" }
+  | { type: "filter/set"; filter: Filter };

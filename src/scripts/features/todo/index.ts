@@ -1,6 +1,7 @@
 import { createStore } from "./store";
 import { getTodoDOM } from "./ui/dom";
 import { bindEvents } from "./ui/events";
+import { updateFilterButtons } from "./ui/filterButtons";
 import { updateItemsLeft } from "./ui/itemsLeft";
 import { render } from "./ui/render";
 
@@ -19,5 +20,8 @@ export function initTodo() {
   });
   store.subscribe((state) => {
     updateItemsLeft(state, dom);
+  });
+  store.subscribe((state) => {
+    updateFilterButtons(state, dom);
   });
 }

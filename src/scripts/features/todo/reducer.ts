@@ -49,6 +49,14 @@ export function reducer(state: State, action: Action): State {
         todos: state.todos.filter((t) => !t.completed),
       };
     }
+    case "filter/set": {
+      if (state.filter === action.filter) return state;
+
+      return {
+        ...state,
+        filter: action.filter,
+      };
+    }
     default:
       return state;
   }
