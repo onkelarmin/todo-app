@@ -29,6 +29,26 @@ export function reducer(state: State, action: Action): State {
         todos: [...state.todos, todo],
       };
     }
+    case "todo/delete": {
+      return {
+        ...state,
+        todos: state.todos.filter((t) => t.id !== action.id),
+      };
+    }
+    case "todo/toggle": {
+      return {
+        ...state,
+        todos: state.todos.map((t) =>
+          t.id === action.id ? { ...t, completed: action.checked } : t,
+        ),
+      };
+    }
+    case "todo/clearCompleted": {
+      return {
+        ...state,
+        todos: state.todos.filter((t) => !t.completed),
+      };
+    }
     default:
       return state;
   }

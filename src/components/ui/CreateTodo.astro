@@ -3,14 +3,14 @@
 import CheckToggleFake from "@components/ui/CheckToggleFake.astro";
 ---
 
-<form novalidate>
+<form id="create-todo-form" novalidate>
   <CheckToggleFake />
   <label>
     <span class="visually-hidden">Enter a Todo</span>
     <input
       type="text"
       name="todo"
-      id="create-todo"
+      id="create-todo-input"
       minlength="1"
       maxlength="80"
       required

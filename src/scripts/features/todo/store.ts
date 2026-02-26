@@ -2,6 +2,12 @@ import { initialState } from "./initialState";
 import { reducer } from "./reducer";
 import type { Action, State } from "./types";
 
+export type Store = {
+  getState: () => State;
+  dispatch: (action: Action) => void;
+  subscribe: (listener: (s: State) => void) => () => boolean;
+};
+
 export function createStore() {
   let state = initialState;
   const listeners = new Set<(s: State) => void>();

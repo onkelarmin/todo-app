@@ -36,6 +36,51 @@ const page = sitePages.home;
           completed={false}
         />
       </ul>
+      <template id="todo-list-item-template">
+        <li class="todo-list-item">
+          <label class="check-toggle">
+            <span class="visually-hidden"
+              >Complete task: <span class="task"></span></span
+            >
+            <svg
+              class="check-svg"
+              aria-hidden="true"
+              viewBox="0 0 10 9"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                id="Path"
+                d="M0.707031 4.01119L3.40293 6.70709L9.40293 0.707092"
+                stroke="white"
+                stroke-width="2"></path>
+            </svg>
+
+            <input class="check-toggle-input visually-hidden" type="checkbox" />
+          </label>
+
+          <span class="task"></span>
+
+          <button type="button" class="delete-button"
+            ><span class="visually-hidden"
+              >Delete task: <span class="task"></span></span
+            >
+            <svg
+              class="cross-svg"
+              aria-hidden="true"
+              viewBox="0 0 12 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M11.7851 0.471404L11.3137 0L5.89256 5.42115L0.471404 0L0 0.471404L5.42115 5.89256L0 11.3137L0.471404 11.7851L5.89256 6.36396L11.3137 11.7851L11.7851 11.3137L6.36396 5.89256L11.7851 0.471404Z"
+                fill="#494C6B"></path>
+            </svg>
+          </button>
+        </li>
+      </template>
 
       <!-- Footer / controls -->
       <footer class="todo-footer">

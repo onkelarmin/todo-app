@@ -13,4 +13,8 @@ export type State = {
   filter: Filter;
 };
 
-export type Action = { type: "todo/add"; text: string };
+export type Action =
+  | { type: "todo/add"; text: string }
+  | { type: "todo/delete"; id: string }
+  | { type: "todo/toggle"; id: string; checked: boolean }
+  | { type: "todo/clearCompleted" };

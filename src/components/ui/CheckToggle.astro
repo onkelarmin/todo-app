@@ -14,14 +14,14 @@ interface Props extends HTMLAttributes<"input"> {
 const { task, completed } = Astro.props;
 ---
 
-<label>
+<label class="check-toggle">
   <span class="visually-hidden">Complete task: {task}</span>
   <CheckSvg class="check-svg" aria-hidden="true" />
   <input type="checkbox" class="visually-hidden" checked={completed} />
 </label>
 
-<style lang="scss">
-  label {
+<style is:global lang="scss">
+  .check-toggle {
     position: relative;
     display: grid;
     place-items: center;
@@ -84,10 +84,10 @@ const { task, completed } = Astro.props;
         outline-color: transparent;
       }
     }
-  }
 
-  .check-svg {
-    position: relative;
-    width: var(--size-icon-check);
+    .check-svg {
+      position: relative;
+      width: var(--size-icon-check);
+    }
   }
 </style>
