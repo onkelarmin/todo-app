@@ -17,23 +17,35 @@ import CheckToggleFake from "@components/ui/CheckToggleFake.astro";
       inputmode="text"
       placeholder="Create a new todo…"
     />
+    <p id="todo-error" class="error"></p>
   </label>
 </form>
 
 <style lang="scss">
   form {
+    position: relative;
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
     gap: var(--space-cont-lg);
     background-color: var(--bg-container-default);
+    border: var(--bw-default-focus) solid transparent;
     border-radius: var(--br-md);
     box-shadow: var(--bs-todos);
     padding-block: var(--pad-cont-xs);
     padding-inline: var(--pad-cont-sm);
+    transition: border-color var(--trans-default);
 
-    &:has(#create-todo:focus-visible) {
-      outline: var(--border-default-focus);
+    &:has(input:focus-visible) {
+      border-color: var(--bc-default-focus);
+    }
+
+    &:has(input[aria-invalid="true"]) {
+      border-color: var(--fg-text-error);
+
+      .error {
+        display: block;
+      }
     }
   }
 
@@ -56,5 +68,16 @@ import CheckToggleFake from "@components/ui/CheckToggleFake.astro";
     &:focus-visible {
       outline: none;
     }
+  }
+
+  .error {
+    display: none;
+    position: absolute;
+    bottom: var(--size-4);
+    left: calc(
+      var(--pad-cont-sm) + var(--size-20px-24px-24px) + var(--space-cont-lg)
+    );
+    font: var(--font-4);
+    color: var(--fg-text-error);
   }
 </style>

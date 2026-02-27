@@ -1,8 +1,32 @@
 import { isFilter } from "../constants";
+import { todoSchema } from "../schema";
 import type { Store } from "../store";
 import type { TodoDOM } from "./dom";
+import { createZodFormController } from "@/scripts/shared/forms/zodForm";
 
 export function bindEvents(dom: TodoDOM, store: Store) {
+  // Create todo
+  const formController = createZodFormController(dom.form, todoSchema);
+  formController.attachFieldValidation();
+
+  dom.form.addEventListener("click", (e) => {
+    if (e.target instanceof HTMLInputElement) return;
+    dom.formInput.focus();
+  });
+
+  dom.form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const result = formController.validateForm();
+
+    if (!result.ok) return;
+
+    store.dispatch({ type: "todo/add", text: result.data.todo });
+
+    dom.form.reset();
+  });
+
+  // Delete button
   dom.todoList.addEventListener("click", (e) => {
     if (!(e.target instanceof Element)) return;
 
@@ -20,6 +44,7 @@ export function bindEvents(dom: TodoDOM, store: Store) {
     store.dispatch({ type: "todo/delete", id });
   });
 
+  // Toggle complete
   dom.todoList.addEventListener("change", (e) => {
     if (!(e.target instanceof Element)) return;
 
@@ -41,10 +66,12 @@ export function bindEvents(dom: TodoDOM, store: Store) {
     store.dispatch({ type: "todo/toggle", id, checked });
   });
 
+  // Clear completed
   dom.clearCompletedButton.addEventListener("click", () => {
     store.dispatch({ type: "todo/clearCompleted" });
   });
 
+  // Filter
   dom.filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const filter = button.dataset.filter;
