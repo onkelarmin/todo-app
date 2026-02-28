@@ -1,4 +1,5 @@
 import { createStore } from "./store";
+import { renderWithFlip } from "./ui/animate";
 import { getTodoDOM } from "./ui/dom";
 import { bindEvents } from "./ui/events";
 import { updateFilterButtons } from "./ui/filterButtons";
@@ -16,7 +17,7 @@ export function initTodo() {
   store.dispatch({ type: "todo/add", text: "Vanilla sucks!" });
 
   store.subscribe((state) => {
-    render(state, dom);
+    renderWithFlip(state, dom);
   });
   store.subscribe((state) => {
     updateItemsLeft(state, dom);
