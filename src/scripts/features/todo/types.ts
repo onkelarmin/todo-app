@@ -1,12 +1,8 @@
+import type { z } from "astro:schema";
 import type { Filter } from "./constants";
+import type { storedTodoSchema } from "./schema";
 
-export type Todo = {
-  id: string;
-  text: string;
-  completed: boolean;
-  order: number;
-  createdAt: number;
-};
+export type Todo = z.infer<typeof storedTodoSchema>;
 
 export type State = {
   todos: Todo[];
@@ -18,4 +14,5 @@ export type Action =
   | { type: "todo/delete"; id: string }
   | { type: "todo/toggle"; id: string; checked: boolean }
   | { type: "todo/clearCompleted" }
-  | { type: "filter/set"; filter: Filter };
+  | { type: "filter/set"; filter: Filter }
+  | { type: "todo/reorder"; orderedIds: string[] };

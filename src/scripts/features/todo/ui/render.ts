@@ -5,7 +5,6 @@ import type { TodoDOM } from "./dom";
 export function render(state: State, dom: TodoDOM) {
   const visible = selectVisibleTodos(state);
   const visibleMap = new Map(visible.map((t) => [t.id, t]));
-  const visibleIds = new Set(visible.map((t) => t.id));
 
   const renderedTodos = [
     ...dom.todoList.querySelectorAll<HTMLLIElement>("li[data-id]"),
@@ -60,7 +59,8 @@ export function render(state: State, dom: TodoDOM) {
       ".check-toggle input",
     );
 
-    if (li) li.dataset.id = todo.id;
+    if (!li) return;
+    li.dataset.id = todo.id;
 
     if (checkToggleInput) checkToggleInput.checked = todo.completed;
 

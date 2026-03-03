@@ -8,8 +8,8 @@ export type Store = {
   subscribe: (listener: (s: State) => void) => () => boolean;
 };
 
-export function createStore() {
-  let state = initialState;
+export function createStore(preloadedState?: State) {
+  let state = preloadedState ?? initialState;
   const listeners = new Set<(s: State) => void>();
 
   function getState() {

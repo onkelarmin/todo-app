@@ -20,7 +20,7 @@ export function reducer(state: State, action: Action): State {
         id: crypto.randomUUID(),
         text,
         completed: false,
-        order: 1,
+        order: nextOrder(state.todos),
         createdAt: Date.now(),
       };
 
@@ -47,6 +47,27 @@ export function reducer(state: State, action: Action): State {
       return {
         ...state,
         todos: state.todos.filter((t) => !t.completed),
+      };
+    }
+    case "todo/reorder": {
+      const idSet = new Set(action.orderedIds);
+
+      const subset = state.todos.filter((t) => idSet.has(t.id));
+
+      const sortedValues = subset.map((t) => t.order).toSorted((a, b) => a - b);
+
+      const orderedMap = new Map(
+        action.orderedIds.map((id, i) => [id, sortedValues[i]]),
+      );
+
+      return {
+        ...state,
+        todos: state.todos.map((t) => {
+          const newOrder = orderedMap.get(t.id);
+          if (newOrder === undefined) return t;
+          if (t.order === newOrder) return t;
+          return { ...t, order: newOrder };
+        }),
       };
     }
     case "filter/set": {

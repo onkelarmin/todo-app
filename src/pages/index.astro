@@ -22,20 +22,7 @@ const page = sitePages.home;
     <CreateTodo />
     <section class="todos">
       <!-- Todos list -->
-      <ul class="todo-list">
-        <!-- <TodoListItem
-          task="Complete online JavaScript course"
-          completed={true}
-        />
-        <TodoListItem task="Jog around the park 3x" completed={false} />
-        <TodoListItem task="10 minutes meditation" completed={false} />
-        <TodoListItem task="Read for 1 hour" completed={false} />
-        <TodoListItem task="Pick up groceries" completed={false} />
-        <TodoListItem
-          task="Complete Todo App on Frontend Mentor"
-          completed={false}
-        /> -->
-      </ul>
+      <ul class="todo-list"></ul>
       <template id="todo-list-item-template">
         <li class="todo-list-item">
           <label class="check-toggle">
@@ -122,8 +109,6 @@ const page = sitePages.home;
   @use "@sass/miscellaneous" as *;
 
   .todos {
-    border-top-left-radius: var(--br-md);
-    border-top-right-radius: var(--br-md);
     margin-block-start: var(--pad-sect-sm);
   }
 
@@ -132,17 +117,50 @@ const page = sitePages.home;
   }
 
   .todo-list-item {
+    position: relative;
+    z-index: 1;
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: var(--space-cont-lg);
-    background-color: var(--bg-container-default);
+    box-shadow: var(--bs-none);
     padding-block: var(--pad-cont-xs);
     padding-inline: var(--pad-cont-sm);
-    border-bottom: var(--border-list-item);
+    transition: box-shadow var(--trans-default);
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background-color: var(--bg-container-default);
+      border-bottom: var(--border-list-item);
+    }
+
+    &:first-child {
+      &::before {
+        border-top-left-radius: var(--br-md);
+        border-top-right-radius: var(--br-md);
+      }
+    }
+
+    &.chosen {
+      z-index: 10;
+      box-shadow: var(--bs-chosen);
+    }
+
+    &.drag {
+      opacity: 0 !important;
+    }
+
+    &.is-moving:not(.chosen) {
+      opacity: 0.9;
+    }
 
     @media (hover: hover) {
       &:hover {
+        cursor: grab;
+
         .delete-button {
           opacity: 1;
         }

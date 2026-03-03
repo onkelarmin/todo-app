@@ -8,15 +8,23 @@ $box-shadow-colors: (
     light: "purple-400" 0.5,
     dark: "neutral-1000" 0.5,
   ),
+  chosen: (
+    light: "purple-400" 0.5,
+    dark: "neutral-1000" 0.5,
+  ),
 );
 
 $box-shadows-offsets: (
   none: 0px 0px 0px 0px,
   todos: 0px 35px 50px -15px,
+  chosen: 0px 0px 16px 0px,
 );
 
 $box-shadows: (
   todos: (
+    var(--bs-todos),
+  ),
+  chosen: (
     var(--bs-todos),
   ),
 );

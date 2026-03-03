@@ -10,3 +10,13 @@ export const todoSchema = z.object({
       .max(80, { message: "Task can't be longer than 80 characters" }),
   ),
 });
+
+// export const storedTodoSchema = z.object({
+//   id: z.string(),
+//   text: z.string().trim().min(1).max(80),
+//   completed: z.boolean(),
+//   order: z.number().int(),
+//   createdAt: z.number(),
+// });
+
+// export const storedTodosSchema = z.array(storedTodoSchema);
