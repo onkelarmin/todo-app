@@ -34,7 +34,7 @@ export function initThemeSwitch() {
   };
 
   const updateThemeSwitch = () => {
-    themeSwitch.toggleAttribute("checked", theme === "dark");
+    themeSwitch.checked = theme === "dark" ? true : false;
   };
 
   themeSwitch.addEventListener("change", () => {
