@@ -5,7 +5,10 @@ import type { Action, State, subscribeOptions } from "./types";
 export type Store = {
   getState: () => State;
   dispatch: (action: Action) => void;
-  subscribe: (listener: (s: State) => void) => () => void;
+  subscribe: (
+    listener: (s: State) => void,
+    options?: subscribeOptions,
+  ) => () => void;
 };
 
 export function createStore(preloadedState?: State) {
