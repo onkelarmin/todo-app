@@ -1,5 +1,4 @@
 import { createStore } from "./store";
-import type { State } from "./types";
 import { renderWithFlip } from "./ui/animate";
 import { getTodoDOM } from "./ui/dom";
 import { setupDragDrop } from "./ui/dragDrop";
@@ -15,20 +14,44 @@ export function initTodo() {
 
   const store = createStore({ todos, filter: "all" });
 
-  bindEvents(dom, store);
+  const detachEvents = bindEvents(dom, store);
 
-  store.subscribe((state) => {
-    renderWithFlip(state, dom);
-  });
-  store.subscribe((state) => {
+  let unsubscribes = [];
+
+  const unsubRenderWithFlip = store.subscribe(
+    (state) => {
+      renderWithFlip(state, dom);
+    },
+    { fireImmediately: true },
+  );
+  unsubscribes.push(unsubRenderWithFlip);
+
+  const unsubSaveLocalStorage = store.subscribe((state) => {
     localStorage.setItem("todos", JSON.stringify(state.todos));
   });
-  store.subscribe((state) => {
-    updateItemsLeft(state, dom);
-  });
-  store.subscribe((state) => {
-    updateFilterButtons(state, dom);
-  });
+  unsubscribes.push(unsubSaveLocalStorage);
 
-  setupDragDrop(dom, store);
+  const unsubUpdateItemsLeft = store.subscribe(
+    (state) => {
+      updateItemsLeft(state, dom);
+    },
+    { fireImmediately: true },
+  );
+  unsubscribes.push(unsubUpdateItemsLeft);
+
+  const unsubUpdateFilterButtons = store.subscribe(
+    (state) => {
+      updateFilterButtons(state, dom);
+    },
+    { fireImmediately: true },
+  );
+  unsubscribes.push(unsubUpdateFilterButtons);
+
+  const destroyDragDrop = setupDragDrop(dom, store);
+
+  return () => {
+    detachEvents();
+    unsubscribes.forEach((fn) => fn());
+    destroyDragDrop();
+  };
 }

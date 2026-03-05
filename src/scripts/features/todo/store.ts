@@ -1,11 +1,11 @@
 import { initialState } from "./initialState";
 import { reducer } from "./reducer";
-import type { Action, State } from "./types";
+import type { Action, State, subscribeOptions } from "./types";
 
 export type Store = {
   getState: () => State;
   dispatch: (action: Action) => void;
-  subscribe: (listener: (s: State) => void) => () => boolean;
+  subscribe: (listener: (s: State) => void) => () => void;
 };
 
 export function createStore(preloadedState?: State) {
@@ -23,10 +23,17 @@ export function createStore(preloadedState?: State) {
     for (const l of listeners) l(state);
   }
 
-  function subscribe(listener: (s: State) => void) {
+  function subscribe(
+    listener: (s: State) => void,
+    options?: subscribeOptions,
+  ): () => void {
     listeners.add(listener);
-    listener(state); // initial render
-    return () => listeners.delete(listener);
+
+    if (options?.fireImmediately) listener(state);
+
+    return () => {
+      listeners.delete(listener);
+    };
   }
 
   return { getState, dispatch, subscribe };

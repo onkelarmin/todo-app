@@ -127,18 +127,39 @@ export function createZodFormController<S extends ZodRawShape>(
     return { ok: true as const, data: result.data };
   }
 
+  const onInput = (e: Event) => {
+    const input = e.currentTarget;
+
+    if (!(input instanceof HTMLInputElement)) return;
+
+    if (!touched.has(input)) return;
+    validateField(input);
+  };
+
+  const onBlur = (e: Event) => {
+    const input = e.currentTarget;
+
+    if (!(input instanceof HTMLInputElement)) return;
+
+    touched.add(input);
+
+    if (!hasValue(input)) return;
+    validateField(input);
+  };
+
   function attachFieldValidation() {
     inputs.forEach((input) => {
-      input.addEventListener("input", () => {
-        if (!touched.has(input)) return;
-        validateField(input);
-      });
+      input.addEventListener("input", onInput);
+      input.addEventListener("blur", onBlur);
+    });
 
-      input.addEventListener("blur", () => {
-        touched.add(input);
-        if (!hasValue(input)) return;
-        validateField(input);
-      });
+    return removeFieldValidation;
+  }
+
+  function removeFieldValidation() {
+    inputs.forEach((input) => {
+      input.removeEventListener("input", onInput);
+      input.removeEventListener("blur", onBlur);
     });
   }
 

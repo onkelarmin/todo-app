@@ -5,16 +5,20 @@ import type { TodoDOM } from "./dom";
 import { createZodFormController } from "@/scripts/shared/forms/zodForm";
 
 export function bindEvents(dom: TodoDOM, store: Store) {
-  // Create todo
+  // Setup Formcontroller
   const formController = createZodFormController(dom.form, todoSchema);
-  formController.attachFieldValidation();
 
-  dom.form.addEventListener("click", (e) => {
+  const detachFormFieldValidation = formController.attachFieldValidation();
+
+  // On Form click focus input
+  const onFormClick = (e: MouseEvent) => {
     if (e.target instanceof HTMLInputElement) return;
     dom.formInput.focus();
-  });
+  };
+  dom.form.addEventListener("click", onFormClick);
 
-  dom.form.addEventListener("submit", (e) => {
+  // Form submission
+  const onFormSubmit = (e: SubmitEvent) => {
     e.preventDefault();
 
     const result = formController.validateForm();
@@ -24,10 +28,11 @@ export function bindEvents(dom: TodoDOM, store: Store) {
     store.dispatch({ type: "todo/add", text: result.data.todo });
 
     dom.form.reset();
-  });
+  };
+  dom.form.addEventListener("submit", onFormSubmit);
 
   // Delete button
-  dom.todoList.addEventListener("click", (e) => {
+  const onDeleteClick = (e: MouseEvent) => {
     if (!(e.target instanceof Element)) return;
 
     const deleteButton = e.target.closest(".delete-button");
@@ -42,10 +47,11 @@ export function bindEvents(dom: TodoDOM, store: Store) {
     }
 
     store.dispatch({ type: "todo/delete", id });
-  });
+  };
+  dom.todoList.addEventListener("click", onDeleteClick);
 
   // Toggle complete
-  dom.todoList.addEventListener("change", (e) => {
+  const onToggleComplete = (e: Event) => {
     if (!(e.target instanceof Element)) return;
 
     const checkToggleInput = e.target.closest<HTMLInputElement>(
@@ -64,29 +70,51 @@ export function bindEvents(dom: TodoDOM, store: Store) {
     }
 
     store.dispatch({ type: "todo/toggle", id, checked });
-  });
+  };
+  dom.todoList.addEventListener("change", onToggleComplete);
 
   // Clear completed
-  dom.clearCompletedButton.addEventListener("click", () => {
+  const onClearCompletedClick = () => {
     store.dispatch({ type: "todo/clearCompleted" });
-  });
+  };
+  dom.clearCompletedButton.addEventListener("click", onClearCompletedClick);
 
   // Filter
+  const onFilterClick = (e: MouseEvent) => {
+    const button = e.currentTarget;
+
+    if (!(button instanceof HTMLButtonElement)) return;
+
+    const filter = button.dataset.filter;
+
+    if (!filter) {
+      console.error("Data-filter attribute missing");
+      return;
+    }
+
+    if (!isFilter(filter)) {
+      console.error("Unknown data-filter value");
+      return;
+    }
+
+    store.dispatch({ type: "filter/set", filter });
+  };
   dom.filterButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const filter = button.dataset.filter;
-
-      if (!filter) {
-        console.error("Data-filter attribute missing");
-        return;
-      }
-
-      if (!isFilter(filter)) {
-        console.error("Unknown data-filter value");
-        return;
-      }
-
-      store.dispatch({ type: "filter/set", filter });
-    });
+    button.addEventListener("click", onFilterClick);
   });
+
+  return () => {
+    detachFormFieldValidation();
+    dom.form.removeEventListener("click", onFormClick);
+    dom.form.removeEventListener("submit", onFormSubmit);
+    dom.todoList.removeEventListener("click", onDeleteClick);
+    dom.todoList.removeEventListener("change", onToggleComplete);
+    dom.clearCompletedButton.removeEventListener(
+      "click",
+      onClearCompletedClick,
+    );
+    dom.filterButtons.forEach((button) => {
+      button.removeEventListener("click", onFilterClick);
+    });
+  };
 }

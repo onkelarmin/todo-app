@@ -16,3 +16,7 @@ export type Action =
   | { type: "todo/clearCompleted" }
   | { type: "filter/set"; filter: Filter }
   | { type: "todo/reorder"; orderedIds: string[] };
+
+export type subscribeOptions = {
+  fireImmediately?: boolean;
+};

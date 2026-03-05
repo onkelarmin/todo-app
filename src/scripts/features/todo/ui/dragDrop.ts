@@ -35,4 +35,6 @@ export function setupDragDrop(dom: TodoDOM, store: Store) {
       store.dispatch({ type: "todo/reorder", orderedIds });
     },
   });
+
+  return () => sortable.destroy();
 }
