@@ -1,5 +1,5 @@
 import { createStore } from "./store";
-import { renderWithFlip } from "./ui/animate";
+import { createTodoRenderer } from "./ui/animate";
 import { getTodoDOM } from "./ui/dom";
 import { setupDragDrop } from "./ui/dragDrop";
 import { bindEvents } from "./ui/events";
@@ -18,9 +18,11 @@ export function initTodo() {
 
   let unsubscribes = [];
 
+  const renderer = createTodoRenderer(dom);
+
   const unsubRenderWithFlip = store.subscribe(
     (state) => {
-      renderWithFlip(state, dom);
+      renderer.render(state);
     },
     { fireImmediately: true },
   );
@@ -50,6 +52,7 @@ export function initTodo() {
   const destroyDragDrop = setupDragDrop(dom, store);
 
   return () => {
+    renderer.destroy();
     detachEvents();
     unsubscribes.forEach((fn) => fn());
     destroyDragDrop();
